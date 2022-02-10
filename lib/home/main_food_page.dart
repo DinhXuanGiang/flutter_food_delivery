@@ -57,7 +57,10 @@ class _MainHomePageState extends State<MainHomePage> {
             ),
           ),
           //showing the body
-          FoodPageBody(),
+          Expanded(
+            child: SingleChildScrollView(
+                child: FoodPageBody()),
+          ),
         ],
       ),
     );
