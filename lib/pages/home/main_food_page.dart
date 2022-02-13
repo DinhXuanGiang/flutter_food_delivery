@@ -7,14 +7,14 @@ import 'package:food_delivery/widgets/small_text.dart';
 
 import 'food_page_body.dart';
 
-class MainHomePage extends StatefulWidget {
-  const MainHomePage({Key? key}) : super(key: key);
+class MainFoodPage extends StatefulWidget {
+  const MainFoodPage({Key? key}) : super(key: key);
 
   @override
-  _MainHomePageState createState() => _MainHomePageState();
+  _MainFoodPageState createState() => _MainFoodPageState();
 }
 
-class _MainHomePageState extends State<MainHomePage> {
+class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
     print("Current height is " + MediaQuery.of(context).size.height.toString());
