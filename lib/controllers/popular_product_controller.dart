@@ -4,12 +4,14 @@ import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:get/get.dart';
 
+import 'cart_controller.dart';
+
 class PopularProductController extends GetxController {
   final PopularProductRepo popularProductRepo;
   PopularProductController({required this.popularProductRepo});
-
   List<dynamic> _popularProductList = [];
   List<dynamic> get popularProductList => _popularProductList;
+  late CartController _cart;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -52,10 +54,15 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct() {
+  void initProduct(CartController cart) {
     _quantity = 0;
     _itemCart = 0;
+    _cart = cart;
     //if exist
     //get from storage _initCartItems=3
+  }
+
+  void addItem(ProductModel product){
+    _cart.addItem(product, _quantity);
   }
 }
