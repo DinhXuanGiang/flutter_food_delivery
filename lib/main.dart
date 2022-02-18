@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'controllers/popular_product_controller.dart';
 import 'controllers/recommended_product_controller.dart';
 import 'helper/dependencies.dart' as dep;
+import 'pages/cart/cart_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
