@@ -11,13 +11,16 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
   Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
+  /*
+  * only for storage and sharedPreferences
+  * */
+  List<CartModel> storageItems = [];
 
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
       //updating model
       _items.update(product.id!, (value) {
-
         totalQuantity = value.quantity! + quantity;
 
         return CartModel(
@@ -36,7 +39,7 @@ class CartController extends GetxController {
       }
     } else {
       //edit, adding new item in the map
-      if(quantity > 0) {
+      if (quantity > 0) {
         _items.putIfAbsent(product.id!, () {
           return CartModel(
             id: product.id,
@@ -54,22 +57,23 @@ class CartController extends GetxController {
             backgroundColor: AppColors.mainColor, colorText: Colors.white);
       }
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
-  
-  bool existInCart(ProductModel product){
-    if(_items.containsKey(product.id)){
+
+  bool existInCart(ProductModel product) {
+    if (_items.containsKey(product.id)) {
       return true;
     } else {
       return false;
     }
   }
-  
+
   int getQuantity(ProductModel product) {
     var quantity = 0;
-    if(_items.containsKey(product.id)){
+    if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
-        if(key == product.id) {
+        if (key == product.id) {
           quantity = value.quantity!;
         }
       });
@@ -77,7 +81,7 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totalItems{
+  int get totalItems {
     var totalQuantity = 0;
     _items.forEach((key, value) {
       totalQuantity += value.quantity!;
@@ -85,16 +89,29 @@ class CartController extends GetxController {
     return totalQuantity;
   }
 
-  List<CartModel> get getItems{
+  List<CartModel> get getItems {
     return _items.entries.map((e) {
       return e.value;
     }).toList();
   }
-  int get totalAmount{
+
+  int get totalAmount {
     var total = 0;
     _items.forEach((key, value) {
       total += value.quantity! * value.price!;
     });
     return total;
+  }
+
+  List<CartModel> getCartData(){
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+    print("length of cart items " + storageItems.length.toString());
+    for(int i = 0; i < storageItems.length; i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
   }
 }
