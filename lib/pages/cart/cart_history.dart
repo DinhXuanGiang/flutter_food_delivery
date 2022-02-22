@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/cart_controller.dart';
+import '../../models/cart_model.dart';
+import '../../routes/route_helper.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -33,11 +37,16 @@ class CartHistory extends StatelessWidget {
     }
 //   print(cartItemsPerOrder);
 
-    List <int> cartOrderTimeToList(){
+    //value of the map
+    List <int> cartItemsPerOrderToList(){
       return cartItemsPerOrder.entries.map((e)=>e.value).toList();
     }
+    //key of the map
+    List <String> cartOrderTimeToList(){
+      return cartItemsPerOrder.entries.map((e)=>e.key).toList();
+    }
 
-    List<int> itemsPerOrder = cartOrderTimeToList(); // 2, 2, 3, 4
+    List<int> itemsPerOrder = cartItemsPerOrderToList(); // 2, 2, 3, 4
 
     var listCounter = 0;
 
@@ -118,16 +127,36 @@ class CartHistory extends StatelessWidget {
                                     children: [
                                       SmallText(text: "Total", color: AppColors.titleColor),
                                       BigText(text: itemsPerOrder[i].toString() + " Items", color: AppColors.titleColor),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: Dimensions.width10/2,
-                                          vertical: Dimensions.height10/2,
+                                      GestureDetector(
+                                        onTap: () {
+                                          var orderTime = cartOrderTimeToList();
+                                          // print("Order time: " + orderTime[i].toString());
+                                          Map<int, CartModel> moreOrder = {};
+                                          for(int j = 0; j < getCartHistoryList.length; j++) {
+                                            if(getCartHistoryList[j].time == orderTime[i]){
+                                              // print("My order time is: " + orderTime[i]);
+                                              moreOrder.putIfAbsent(getCartHistoryList[j].id!, () =>
+                                                CartModel.fromJson(jsonDecode(jsonEncode(getCartHistoryList[j])))
+                                              );
+                                              // print("The cart or product id is " + getCartHistoryList[j].id.toString());
+                                              // print("Product info is: " + jsonEncode(getCartHistoryList[j]));
+                                            }
+                                          }
+                                          Get.find<CartController>().setItems = moreOrder;
+                                          Get.find<CartController>().addToCartList();
+                                          Get.toNamed(RouteHelper.getCartPage());
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: Dimensions.width10/2,
+                                            vertical: Dimensions.height10/2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(Dimensions.radius15/3),
+                                            border: Border.all(width: 1, color: AppColors.mainColor),
+                                          ),
+                                          child: SmallText(text: "one more", color: AppColors.mainColor),
                                         ),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(Dimensions.radius15/3),
-                                          border: Border.all(width: 1, color: AppColors.mainColor),
-                                        ),
-                                        child: SmallText(text: "one more", color: AppColors.mainColor),
                                       ),
                                     ],
                                   ),
