@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/colors.dart';
 // import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../account/account_page.dart';
 import '../cart/cart_history.dart';
 import 'main_food_page.dart';
 
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     MainFoodPage(),
     Container(child: Center(child: Text("Next page"))),
     CartHistory(),
-    Container(child: Center(child: Text("Next next next page"))),
+    AccountPage(),
   ];
 
   void onTapNav(int index) {

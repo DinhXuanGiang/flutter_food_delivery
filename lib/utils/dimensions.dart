@@ -34,6 +34,7 @@ class Dimensions {
   //icon Size
   static double iconSize16 = screenHeight / 53.54;
   static double iconSize24 = screenHeight / 35.69;
+  static double iconSize75 = screenHeight / 11.43;
 
   //listview SizedBox
   static double listViewImgSize = screenWidth / 3.25;
