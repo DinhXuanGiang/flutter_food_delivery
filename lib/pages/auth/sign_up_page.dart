@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
 
 import '../../base/show_custom _snackbar.dart';
+import '../../controllers/auth_controller.dart';
+import '../../models/signup_body_model.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -24,32 +26,45 @@ class SignUpPage extends StatelessWidget {
       "g.png",
     ];
 
-    void _registration(){
+    void _registration() {
+      var authController = Get.find<AuthController>();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       String name = nameController.text.trim();
       String phone = phoneController.text.trim();
 
-      if(name.isEmpty){
+      if (name.isEmpty) {
         showCustomSnackBar("Type in your name", title: "Name");
-      } else if (phone.isEmpty){
+      } else if (phone.isEmpty) {
         showCustomSnackBar("Type in your phone number", title: "Phone");
       } else if (email.isEmpty) {
         showCustomSnackBar("Type in your email address", title: "Email");
-      } else if (!GetUtils.isEmail(email)){
-        showCustomSnackBar("Type in a valid email address", title: "Valid email address");
+      } else if (!GetUtils.isEmail(email)) {
+        showCustomSnackBar("Type in a valid email address",
+            title: "Valid email address");
       } else if (password.isEmpty) {
         showCustomSnackBar("Type in your password", title: "Password");
-      } else if (password.length<6) {
-        showCustomSnackBar("Password can't be less than 6 characters", title: "Password");
+      } else if (password.length < 6) {
+        showCustomSnackBar("Password can't be less than 6 characters",
+            title: "Password");
       } else {
         showCustomSnackBar("All went well", title: "Perfect");
+        SignUpBody signUpBody = SignUpBody(
+            name: name, phone: phone, email: email, password: password);
+        authController.registration(signUpBody).then((status){
+          if(status.isSuccess){
+            print("Success registration!");
+          } else {
+            showCustomSnackBar(status.message);
+          }
+        });
       }
     }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        physics:BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(
@@ -121,16 +136,16 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: Dimensions.height10),
             //tag line
             RichText(
-                text: TextSpan(
-              recognizer: TapGestureRecognizer()..onTap = () => Get.back(),
-              text: "Have an account already?",
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: Dimensions.font20,
-                  ),
+              text: TextSpan(
+                recognizer: TapGestureRecognizer()..onTap = () => Get.back(),
+                text: "Have an account already?",
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: Dimensions.font20,
+                ),
+              ),
             ),
-            ),
-            SizedBox(height: Dimensions.screenHeight*0.05),
+            SizedBox(height: Dimensions.screenHeight * 0.05),
             //sign up options
             RichText(
               text: TextSpan(
@@ -142,22 +157,21 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             Wrap(
-              children:
-                List.generate(3, (index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: Dimensions.radius30,
-                    backgroundImage: AssetImage(
-                      "assets/image/" + signUpImages[index],
-                    ),
-                  ),
-                ))
-              ,
+              children: List.generate(
+                  3,
+                  (index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          radius: Dimensions.radius30,
+                          backgroundImage: AssetImage(
+                            "assets/image/" + signUpImages[index],
+                          ),
+                        ),
+                      )),
             ),
           ],
         ),
       ),
     );
-
   }
 }
