@@ -4,6 +4,7 @@ import 'package:food_delivery/utils/colors.dart';
 // import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../account/account_page.dart';
+import '../auth/sign_in_page.dart';
 import '../auth/sign_up_page.dart';
 import '../cart/cart_history.dart';
 import 'main_food_page.dart';
