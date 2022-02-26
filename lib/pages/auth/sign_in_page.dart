@@ -20,6 +20,12 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
+    var signUpImages = [
+      "t.png",
+      "f.png",
+      "g.png",
+    ];
+
 
     void _login(AuthController authController) {
       var authController = Get.find<AuthController>();
@@ -87,7 +93,7 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Sign into your account",
+                      "Enter your email to log in or create an account.",
                       style: TextStyle(
                         fontSize: Dimensions.font20,
                         color: Colors.grey[500],
@@ -168,7 +174,7 @@ class SignInPage extends StatelessWidget {
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Get.to(() => SignUpPage(), transition: Transition.fade),
-                        text: " Create",
+                        text: " Create account",
                         style: TextStyle(
                           color: AppColors.mainBlackColor,
                           fontSize: Dimensions.font20,
@@ -176,6 +182,19 @@ class SignInPage extends StatelessWidget {
                         )),
                   ],
                 ),
+              ),
+              Wrap(
+                children: List.generate(
+                    3,
+                        (index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        radius: Dimensions.radius30,
+                        backgroundImage: AssetImage(
+                          "assets/image/" + signUpImages[index],
+                        ),
+                      ),
+                    )),
               ),
             ],
           ),

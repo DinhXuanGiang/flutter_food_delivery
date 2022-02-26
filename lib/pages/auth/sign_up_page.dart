@@ -7,6 +7,7 @@ import '../../base/custom_loader.dart';
 import '../../base/show_custom _snackbar.dart';
 import '../../controllers/auth_controller.dart';
 import '../../models/signup_body_model.dart';
+import '../../routes/route_helper.dart';
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -21,11 +22,11 @@ class SignUpPage extends StatelessWidget {
     var passwordController = TextEditingController();
     var nameController = TextEditingController();
     var phoneController = TextEditingController();
-    var signUpImages = [
+   /* var signUpImages = [
       "t.png",
       "f.png",
       "g.png",
-    ];
+    ];*/
 
     void _registration(AuthController authController) {
       // var authController = Get.find<AuthController>();
@@ -57,6 +58,7 @@ class SignUpPage extends StatelessWidget {
             print("Success registration!");
           } else {
             showCustomSnackBar(status.message);
+            Get.offNamed(RouteHelper.getInitial());
           }
         });
       }
@@ -165,7 +167,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Wrap(
+                      /*Wrap(
                         children: List.generate(
                             3,
                             (index) => Padding(
@@ -177,7 +179,7 @@ class SignUpPage extends StatelessWidget {
                                     ),
                                   ),
                                 )),
-                      ),
+                      ),*/
                     ],
                   ),
                 )
