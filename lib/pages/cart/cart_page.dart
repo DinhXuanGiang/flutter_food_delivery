@@ -16,6 +16,7 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get/get.dart';
 
 import '../../base/no_data_page.dart';
+import '../../controllers/auth_controller.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -253,9 +254,14 @@ class CartPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    if(Get.find<AuthController>().userLoggedIn()){
+                      print("tapped");
+                      cartController.addToHistory();
+                    } else {
+                      Get.toNamed(RouteHelper.getSignInPage());
+                    }
                     // popularProduct.addItem(product);
-                    print("tapped");
-                    cartController.addToHistory();
+
                   },
                   child: Container(
                     padding: EdgeInsets.only(
