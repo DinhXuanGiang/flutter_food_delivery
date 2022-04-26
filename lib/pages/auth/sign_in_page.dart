@@ -20,11 +20,11 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var signUpImages = [
-      "t.png",
-      "f.png",
-      "g.png",
-    ];
+    // var signUpImages = [
+    //   "t.png",
+    //   "f.png",
+    //   "g.png",
+    // ];
 
 
     void _login(AuthController authController) {
@@ -183,19 +183,19 @@ class SignInPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Wrap(
-                children: List.generate(
-                    3,
-                        (index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        radius: Dimensions.radius30,
-                        backgroundImage: AssetImage(
-                          "assets/image/" + signUpImages[index],
-                        ),
-                      ),
-                    )),
-              ),
+              // Wrap(
+              //   children: List.generate(
+              //       3,
+              //           (index) => Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: CircleAvatar(
+              //           radius: Dimensions.radius30,
+              //           backgroundImage: AssetImage(
+              //             "assets/image/" + signUpImages[index],
+              //           ),
+              //         ),
+              //       )),
+              // ),
             ],
           ),
         ):CustomLoader();

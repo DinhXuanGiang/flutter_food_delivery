@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dbestech.food_delivery">
+    package="com.dinhxuangiang.food_delivery">
    <application
         android:label="food_delivery"
         android:icon="@mipmap/ic_launcher">

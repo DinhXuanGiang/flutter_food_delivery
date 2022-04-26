@@ -86,7 +86,7 @@ class PopularFoodDetail extends StatelessWidget {
                                       icon: Icons.circle,
                                       size: 20,
                                       iconColor: Colors.transparent,
-                                      backgroundColor: AppColors.mainColor))
+                                      backgroundColor: AppColors.mainColor),)
                               : Container(),
                           Get.find<PopularProductController>().totalItems >= 1
                               ? Positioned(
